@@ -15,7 +15,7 @@ export class Common {
   }
 
   presentLoading(){
-   this.loader = this.loadingCtrl.create({content: "Please wait ..."})
+   this.loader = this.loadingCtrl.create({content: "Por favor espere..."})
   this.loader.present();
   }
 

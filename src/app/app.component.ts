@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { Platform, App, MenuController, NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform, App, MenuController, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SplitPane } from '../providers/split-pane';
 import { Welcome } from '../pages/welcome/welcome';
+import { ModuloPage } from '../pages/modulo/modulo';
 
 import {Signup} from "../pages/signup/signup";
 
@@ -11,12 +12,10 @@ import {Signup} from "../pages/signup/signup";
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp {  
+  @ViewChild(Nav) nav: Nav;
   rootPage:any = Welcome;
   pages: Array<{title: string, component: any}>;
-  invitedPages: Array<{title: string, component: any}>;
-  usuariosPages: Array<{title: string, component: any}>;
-  doctoresPages: Array<{title: string, component: any}>;
 
   constructor(  platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public app: App, public splitPane: SplitPane, public menu: MenuController) {
     platform.ready().then(() => {
@@ -27,15 +26,21 @@ export class MyApp {
     });
 
      this.pages = [
-      { title: 'Inicio (Blog)', component: Signup },
-      { title: 'Dieta de la semana', component: Welcome },
-      { title: 'Tu dieta', component: Welcome },
+      { title: 'Inicio (Blog)', component: Welcome },
+      { title: 'Modulo', component: ModuloPage },
       //{ title: 'List', component: ListPage }
     ];
-    this.invitedPages = [    
-      { title: 'Ingresa', component: Signup }
-     ];
+     
   }
+
+
+
+  openPage(page) {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    this.nav.setRoot(page.component);
+  }
+
 get navCtrl(): NavController {
     return this.app.getRootNav();
   }

@@ -9,18 +9,26 @@
       </ion-toolbar>
     </ion-header>
    
+ 
 
+  
      <ion-content>
     <ion-list>
-
-        <button ion-button color="primary" (click)="logout()">Logout</button>
+        <div *ngFor="let p of pages" (click)="openPage(p)">
+        <button menuClose ion-item>
+          {{p.title}}
+        </button>
+      </div>
+        <button menuClose ion-item color="primary" (click)="logout()">Salir</button>
     </ion-list>
      </ion-content>
 
   </ion-menu>
-  
+
 
 
   <ion-nav [root]="rootPage" main #content></ion-nav>
 </ion-split-pane>
+
+
 

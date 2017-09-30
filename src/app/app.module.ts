@@ -14,6 +14,7 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { ModuloPage } from '../pages/modulo/modulo';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,7 +32,8 @@ import { LinkyModule } from 'angular-linky';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ModuloPage
   ],
   imports: [
     BrowserModule,HttpModule,MomentModule,LinkyModule,
@@ -47,7 +49,8 @@ import { LinkyModule } from 'angular-linky';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ModuloPage
   ],
   providers: [
     StatusBar,
