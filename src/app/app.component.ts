@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { SplitPane } from '../providers/split-pane';
 import { Welcome } from '../pages/welcome/welcome';
 import { ModuloPage } from '../pages/modulo/modulo';
+import { AdminEmpresasPage } from '../pages/admin-empresas/admin-empresas';
+import { AdminApiPage } from '../pages/admin-api/admin-api';
 
 import {Signup} from "../pages/signup/signup";
 
@@ -15,7 +17,7 @@ import {Signup} from "../pages/signup/signup";
 export class MyApp {  
   @ViewChild(Nav) nav: Nav;
   rootPage:any = Welcome;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: any}>;
 
   constructor(  platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public app: App, public splitPane: SplitPane, public menu: MenuController) {
     platform.ready().then(() => {
@@ -26,8 +28,10 @@ export class MyApp {
     });
 
      this.pages = [
-      { title: 'Inicio (Blog)', component: Welcome },
-      { title: 'Modulo', component: ModuloPage },
+      { title: 'Inicio (Blog)', component: Welcome, icon: "apps" },
+      { title: 'Admin Empresas', component: AdminEmpresasPage, icon: "ice-cream"  }, 
+      { title: 'Admin Api', component: AdminApiPage, icon: "ice-cream"  }, 
+      { title: 'Modulo', component: ModuloPage, icon: "cube"  },
       //{ title: 'List', component: ListPage }
     ];
      

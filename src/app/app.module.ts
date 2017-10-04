@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 import { AuthService } from '../providers/auth-service';
 import { SplitPane } from '../providers/split-pane';
 import { Common } from '../providers/common';
+import { JMYDB } from '../providers/jmydb';
 import { HttpModule } from "@angular/http";
 import { Welcome } from '../pages/welcome/welcome';
 import { Login } from '../pages/login/login';
@@ -15,6 +16,8 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ModuloPage } from '../pages/modulo/modulo';
+import { AdminEmpresasPage } from '../pages/admin-empresas/admin-empresas';
+import { AdminApiPage } from '../pages/admin-api/admin-api';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,7 +36,9 @@ import { LinkyModule } from 'angular-linky';
     ContactPage,
     HomePage,
     TabsPage,
-    ModuloPage
+    ModuloPage,
+    AdminEmpresasPage,
+    AdminApiPage
   ],
   imports: [
     BrowserModule,HttpModule,MomentModule,LinkyModule,
@@ -50,11 +55,13 @@ import { LinkyModule } from 'angular-linky';
     ContactPage,
     HomePage,
     TabsPage,
-    ModuloPage
+    ModuloPage,
+    AdminEmpresasPage,
+    AdminApiPage
   ],
   providers: [
     StatusBar,
-    SplashScreen,AuthService,SplitPane,Common,
+    SplashScreen,AuthService,SplitPane,Common,JMYDB,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

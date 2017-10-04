@@ -10,11 +10,11 @@
 
 <ion-content padding>
   <h2>Bienvenido {{userDetails.name}}</h2>
-  <div> actualiza tu estado y diles a los demas ¡lo mejor que te sientes!</div>
+  <div> Útiliza esta herramienta de tareas para agregar tus tareas pendientes!</div>
  <ion-item id="udpateBox">
 <textarea [(ngModel)]="userPostData.feed"></textarea>
 <ion-row>
-<button ion-button color="energy" (click)="feedUpdate()">Agregar accion positiva</button>
+<button ion-button color="energy" (click)="feedUpdate()">Agregar Tarea</button>
 </ion-row>
  </ion-item>
 

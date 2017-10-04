@@ -13,7 +13,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Modulo de ejemplo</ion-title>
+    <ion-title>Administrador de empresas</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -22,19 +22,18 @@
 <ion-content padding>	
 	<ion-row>
 		<p>
-			Este modulo da ejemplo de Alta, Baja y Cambios
+			Módulo para dar de alta empresas integradas a este Panel
 		</p>
 	</ion-row>
-	 <ion-item id="udpateBox">
-	    <ion-label floating>Nombre de nueva API </ion-label>
-	    <ion-input type="text" value=""  [(ngModel)]="json_head.nombre"></ion-input>
+	 <ion-item >
+
+	    <ion-label floating>Nombre de la nueva empresa</ion-label>
+	    <ion-input type="text" value="" [(ngModel)]="json_head.nombre"></ion-input>
 	
-
 	 </ion-item>
-	 <ion-item>
-	 	<button ion-button color="energy" (click)="empresas_guardar()">Agregar empresa</button>
-	 	<button ion-button color="energy" (click)="pruebaVer()">Prueba ver</button>
-
+	 <ion-item >
+		<button ion-button color="energy" (click)="empresas_guardar()">Agregar empresa</button>
+	
 	 </ion-item>
 
 	  <ion-card *ngFor="let item of dataSet; let msgIndex = index">
