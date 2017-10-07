@@ -8,21 +8,27 @@
 </ion-header>
 
 <ion-content padding>
-<ion-list>
+  <ion-grid>
+    <ion-col col-sm-12 offset-md-4 col-md-4 offset-lg-5 col-lg-2>
+      <ion-list>
 
-  <ion-item>
-    <ion-label fixed>Usuario</ion-label>
-    <ion-input type="text" value="" [(ngModel)]="userData.username"></ion-input>
-  </ion-item>
+        <ion-item>
+          <ion-label floating>Usuario o email</ion-label>
+          <ion-input type="text" value="" [(ngModel)]="userData.username"></ion-input>
+        </ion-item>
 
-  <ion-item>
-    <ion-label fixed>Contraseñas</ion-label>
-    <ion-input type="password" [(ngModel)]="userData.password"></ion-input>
-  </ion-item>
+        <ion-item>
+          <ion-label floating>Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="userData.password"></ion-input>
+        </ion-item>
 
-  <button ion-button block color="primary" (click)="login()">Entrar</button>
-  <button ion-button block color="primary" (click)="repass()">Recupera tu contraseña</button>
-  <button ion-button block color="primary" (click)="signup()">Registrate</button>
+        <button ion-button block color="energy" (click)="login()">Entrar</button>
+        <button ion-button block color="primary" (click)="repass()">Recupera tu contraseña</button>
+        <button ion-button block color="primary" (click)="signup()">Registrate</button>
 
-</ion-list>
+      </ion-list>
+    </ion-col>
+  </ion-grid>
 </ion-content>
+
+

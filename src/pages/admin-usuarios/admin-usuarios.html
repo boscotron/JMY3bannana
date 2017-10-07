@@ -1,0 +1,104 @@
+<!--
+  Generated template for the AdminUsuariosPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Administración de usuarios</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+	<ion-grid >
+		<ion-row *ngIf="!!divs.usuario">
+			<ion-col>
+				<ion-list>
+					<p>Bienvenido al módulo de administración de usuarios, para poder asignrar a un usuario registrado una empresa y permisos de usuario dentro de las API's disponibles para cada empresa.
+					</p>
+				</ion-list>
+
+				<ion-card>
+					<ion-list>
+						 <ion-item>
+						    <ion-label floating>Correo del usuario </ion-label>
+						    <ion-input  type="email"  pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"  [(ngModel)]="usuario"></ion-input>
+						  </ion-item>
+
+						 <ion-item>
+						 	Paso 1 > <button ion-button color="energy" (click)="verificarUsuario()">Buscar usuario</button>
+						 </ion-item>
+						  <ion-item *ngIf="!!divs.empresas">
+						    <ion-label floating>Seleccione la empresa</ion-label>
+
+						    <ion-select [(ngModel)]="formulario.id_empresa">
+						    	<ion-option *ngFor="let empresa of empresas" value="{{empresa.id_empresa}}">
+						            {{empresa.nombre}}
+						        </ion-option>
+						    </ion-select>
+						  </ion-item>
+						  <ion-item *ngIf="!!divs.empresas">
+						 	Paso 2 > <button ion-button color="energy" (click)="asignarEmpresa()">Ver Apis disponiblre</button>
+						 </ion-item>
+
+						 <ion-item  *ngIf="!!divs.apis">>
+								<ion-label>Toppings</ion-label>
+								<ion-select>
+									<ion-option *ngFor="let out of nivelPermisos" [value]="out.nivel">{{out.nivel}}</ion-option>
+								</ion-select>
+						</ion-item>
+						  <ion-item *ngIf="!!divs.apis">
+						 	Paso 3 > <button ion-button color="energy" (click)="asignarApi()">Ver Apis disponiblre</button>
+						 </ion-item>
+						
+					</ion-list>
+				</ion-card>
+			</ion-col>
+		</ion-row>
+
+		<ion-row *ngIf="!divs.usuario">
+
+		</ion-row>
+
+		<ion-row *ngIf="!divs.usuario">
+			<ion-col>
+				<ion-list>
+					<p>En la siguente lista de enumeraran las Api's disponibles de la empresa <b> {{print.empresaApi}}</b>
+					</p>
+				</ion-list>
+				<ion-card>
+					<ion-list>
+						<ion-item>
+						  <ion-label>Seleccione la(s) api('s) a las cual cambiará permisos </ion-label>
+						  <ion-select [(ngModel)]="apisSelect" multiple="true">
+						   		<ion-option *ngFor="let apisList of listaApis" value="{{apisList.apk_key}}">
+						            {{apisList.nombre}}
+						        </ion-option>
+						  </ion-select>
+						</ion-item>
+						<ion-item>
+						  <ion-label>Determine el nivel de permiso</ion-label>
+						  <ion-select [(ngModel)]="permisoSelect" [selectOptions]="nivelPermisos" >
+						  	<ion-option *ngFor="let permiso of nivelPermisos" value="{{permiso.nivel}}">
+						            {{permiso.nombre}}
+						        </ion-option>
+						  </ion-select>
+						</ion-item>
+						  <ion-item>
+						 	Paso 4 > <button ion-button color="energy" (click)="guardarPermisos()">Guardar permisos</button>
+						 </ion-item>
+						
+						
+					</ion-list>
+				</ion-card>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+
+</ion-content>

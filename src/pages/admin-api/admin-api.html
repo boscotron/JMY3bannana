@@ -63,7 +63,7 @@
 					    <ion-label floating>Seleccione API Key </ion-label>
 
 					    <ion-select [(ngModel)]="form_nueva_db.apk_key">
-					    	<ion-option *ngFor="let apiset of dataSet" value="{{apiset.nombre}}">
+					    	<ion-option *ngFor="let apiset of dataSet" value="{{apiset.apk_key}}">
 					            {{apiset.nombre}}
 					        </ion-option>
 					    </ion-select>
@@ -86,19 +86,17 @@
 
 			    </ion-col>
 			    <ion-col col-md-8 col-sm-12>
-
-
-				<ion-grid>
+				<ion-grid no-padding>
 					  <ion-row>
 					    <ion-col  col-md-12 col-lg-6>
 					    	<button ion-button color="dark" (click)="api_lista()">Lista de apis</button>
-					    	<ion-card *ngFor="let item of dataSet; let msgIndex = index">
+					    	<ion-card no-padding *ngFor="let item of dataSet; let msgIndex = index">
 							    <ion-item>
-								    <ion-card-content>
+								    <ion-card-content no-padding>
 								     	<p [innerHTML]="item.nombre | linky"></p>	
 									    <span >
 										  <ion-item>
-										    <ion-input placeholder="Clear Input" value="{{item.apk_key}}"></ion-input>
+										    <ion-input placeholder="API KEY" value="{{item.apk_key}}"></ion-input>
 										  </ion-item>
 									    </span>
 									    <span>{{this.converTime(item.created) | amTimeAgo}}</span>
@@ -111,12 +109,12 @@
 					    	<ion-card *ngFor="let itemb of listaDB; let msgIndex = index" >
 							    <ion-item>
 							    
-								    <ion-card-content>
+								    <ion-card-content no-padding>
 								     	<p [innerHTML]="itemb.nombre_db | linky"></p>
 									    <span >
 
 										  <ion-item>
-										    <ion-input placeholder="Clear Input" value="{{itemb.nombre}}"></ion-input>
+										    <ion-input placeholder="DB KEY" value="{{itemb.db_key}}"></ion-input>
 										  </ion-item>
 									    </span>
 								    </ion-card-content>

@@ -18,6 +18,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ModuloPage } from '../pages/modulo/modulo';
 import { AdminEmpresasPage } from '../pages/admin-empresas/admin-empresas';
 import { AdminApiPage } from '../pages/admin-api/admin-api';
+import { AdminUsuariosPage } from '../pages/admin-usuarios/admin-usuarios';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -38,7 +39,8 @@ import { LinkyModule } from 'angular-linky';
     TabsPage,
     ModuloPage,
     AdminEmpresasPage,
-    AdminApiPage
+    AdminApiPage,
+    AdminUsuariosPage
   ],
   imports: [
     BrowserModule,HttpModule,MomentModule,LinkyModule,
@@ -57,7 +59,8 @@ import { LinkyModule } from 'angular-linky';
     TabsPage,
     ModuloPage,
     AdminEmpresasPage,
-    AdminApiPage
+    AdminApiPage,
+    AdminUsuariosPage
   ],
   providers: [
     StatusBar,

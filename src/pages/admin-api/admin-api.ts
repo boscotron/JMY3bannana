@@ -59,6 +59,8 @@ export class AdminApiPage {
         .authService
         .postData(this.userPostData, "api")
         .then((result) => {
+          console.log(result);
+          
           this.lista_base_de_datos();
           this.form_nueva_db.nombre_db ="";
           this.form_nueva_db.id_empresa ="";

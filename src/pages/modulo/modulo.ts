@@ -29,7 +29,9 @@ export class ModuloPage {
     this.userPostData.token = this.userDetails.token;
     
   }
-
+  usuarios(){
+    this.jmyDB.jmyUsuarios({"fn":"lista"});
+  }
   pruebaVer(){
     var varextra:{"guardar uno","guardar dos"};
     

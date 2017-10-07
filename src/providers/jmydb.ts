@@ -24,12 +24,7 @@ export class JMYDB {
   //public loader: any;
 
   constructor(public loadingCtrl: LoadingController,public toastCtrl: ToastController, public authService : AuthService,public common: Common) {
-    console.log('Hello Common Provider');
-
-    const data = JSON.parse(localStorage.getItem('userData'));
-    this.userDetails = data.userData;
-    this.userPostData.user_id = this.userDetails.user_id;
-    this.userPostData.token = this.userDetails.token;
+    console.log('jmydb inc');
     
   } 
   /*
@@ -44,6 +39,7 @@ export class JMYDB {
             //"ID_S":{}, // opcional ver
             //"LIKE_V":{"angora","luciernaga"}, // opcional ver
             //"LIKE_V_OPER":"OR", // opcional ver
+            //"resultado" : "api_menu", // 
           }, 
           "body":{
             "varialbe1":"guardar uno",
@@ -52,6 +48,12 @@ export class JMYDB {
     });
   */
   public jmy(datos){
+
+      //var 
+      const data = JSON.parse(localStorage.getItem('userData'));
+      this.userDetails = data.userData;
+      this.userPostData.user_id = this.userDetails.user_id;
+      this.userPostData.token = this.userDetails.token;
       this.userPostData.fn = datos.fn;       
       this.userPostData.head = datos.head;
       this.userPostData.body = datos.body;
@@ -62,6 +64,34 @@ export class JMYDB {
         .postData(this.userPostData, "jmydb")
         .then((result) => {
           this.resultado=result;
+          //if(datos.titulo!=undefined)
+            console.log(datos.titulo);
+            
+          console.log(this.resultado);
+        }, (err) => {
+          //Connection failed message
+        });
+  }
+
+  public jmyUsuarios(datos){
+    /*
+      jmyUsuarios({"fn":"lista"}); // lista de usuarios
+      jmyUsuarios({"fn":"ver","id_user":"1"}); // ver usuario
+      jmyUsuarios({"fn":"guardar","id_user":"1", "body":{"var1":"var1"}}); // Guardar configuraciones del usuario
+    */
+
+      //var 
+      const data = JSON.parse(localStorage.getItem('userData'));
+      this.userDetails = data.userData;
+      this.userPostData.user_id = this.userDetails.user_id;
+      this.userPostData.token = this.userDetails.token;
+      console.log(this.userPostData);
+      //this.common.presentLoading();
+      this
+        .authService
+        .postData(this.userPostData, "listaUsuarios")
+        .then((result) => {
+          this.resultado=result;       
           console.log(this.resultado);
         }, (err) => {
           //Connection failed message
