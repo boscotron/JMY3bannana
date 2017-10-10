@@ -29,9 +29,9 @@ export class AdminUsuariosPage {
   public usuario : any;    
   public apisSelect : any;    
   public permisoSelect	 : any;    
-  public listaApis	 : any;    
-  print = {"empresaApi":"",
-
+  public listaApis	 : any;   
+  usrdisp = {} ;
+  print = {"empresaApi":""
 			};
   permisos = {	"ID_APK":"",
 				"P":""
@@ -71,11 +71,10 @@ export class AdminUsuariosPage {
   userPostData = {
     "user_id": "",
     "token": "",
-    "nombre": "",
-    "json_body": {},
+    "body": {"usuario":""},
     "fn":""
   };
-
+ 
   constructor(public common: Common, public navCtrl: NavController, public authService : AuthService, public navParams: NavParams, public toastCtrl: ToastController) {
   	 const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
@@ -102,6 +101,30 @@ export class AdminUsuariosPage {
   verificarUsuario(){
   	if(this.usuario!=undefined){	
     	this.divs.empresas = true;
+    	this.userPostData.fn = "verUsr" ;
+    	this.userPostData.body.usuario = this.usuario;
+    	console.log("verificarUsuario FN");
+	     console.log(this.userPostData);
+	    this.common.presentLoading();
+	    this.authService
+	      .postData(this.userPostData, "usuarios")
+	      .then((result) => {
+	        this.resposeData = result;
+
+	        console.log(this.resposeData);
+
+	        if (this.resposeData.feedData) {
+	        	this.usrdisp =Array.of( this.resposeData.feedData);
+	          	console.log(this.usrdisp);
+	        } else {
+	          console.log("No access");
+	        }
+
+	      }, (err) => {
+	        //Connection failed message
+	      });
+
+	      this.common.closeLoading();
     }else{
     	this.alerta("Define un usuario válido");
     }
@@ -140,7 +163,7 @@ export class AdminUsuariosPage {
 	  
   }
 
-  
+
 
 
   api_lista() {
