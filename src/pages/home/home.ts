@@ -8,6 +8,7 @@ export class HomePage {
   public userDetails : any;
   public resposeData : any;
   public dataSet : any;
+  public idEmpresa : any;
   userPostData = {
     "user_id": "",
     "token": "",

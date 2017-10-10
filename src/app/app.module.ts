@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 import { AuthService } from '../providers/auth-service';
 import { SplitPane } from '../providers/split-pane';
 import { Common } from '../providers/common';
+import { JMYDB } from '../providers/jmydb';
 import { HttpModule } from "@angular/http";
 import { Welcome } from '../pages/welcome/welcome';
 import { Login } from '../pages/login/login';
@@ -14,6 +15,10 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { ModuloPage } from '../pages/modulo/modulo';
+import { AdminEmpresasPage } from '../pages/admin-empresas/admin-empresas';
+import { AdminApiPage } from '../pages/admin-api/admin-api';
+import { AdminUsuariosPage } from '../pages/admin-usuarios/admin-usuarios';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,7 +36,11 @@ import { LinkyModule } from 'angular-linky';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ModuloPage,
+    AdminEmpresasPage,
+    AdminApiPage,
+    AdminUsuariosPage
   ],
   imports: [
     BrowserModule,HttpModule,MomentModule,LinkyModule,
@@ -47,11 +56,15 @@ import { LinkyModule } from 'angular-linky';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ModuloPage,
+    AdminEmpresasPage,
+    AdminApiPage,
+    AdminUsuariosPage
   ],
   providers: [
     StatusBar,
-    SplashScreen,AuthService,SplitPane,Common,
+    SplashScreen,AuthService,SplitPane,Common,JMYDB,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

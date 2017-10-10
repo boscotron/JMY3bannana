@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
-import { Platform, App, MenuController, NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform, App, MenuController, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SplitPane } from '../providers/split-pane';
 import { Welcome } from '../pages/welcome/welcome';
+import { ModuloPage } from '../pages/modulo/modulo';
+import { AdminEmpresasPage } from '../pages/admin-empresas/admin-empresas';
+import { AdminApiPage } from '../pages/admin-api/admin-api';
+import { AdminUsuariosPage } from '../pages/admin-usuarios/admin-usuarios';
 
 import {Signup} from "../pages/signup/signup";
 
@@ -11,12 +15,10 @@ import {Signup} from "../pages/signup/signup";
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp {  
+  @ViewChild(Nav) nav: Nav;
   rootPage:any = Welcome;
-  pages: Array<{title: string, component: any}>;
-  invitedPages: Array<{title: string, component: any}>;
-  usuariosPages: Array<{title: string, component: any}>;
-  doctoresPages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: any}>;
 
   constructor(  platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public app: App, public splitPane: SplitPane, public menu: MenuController) {
     platform.ready().then(() => {
@@ -25,17 +27,28 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
-
+     const data = JSON.parse(localStorage.getItem('userData'));
+    // console.log(data);
+     
      this.pages = [
-      { title: 'Inicio (Blog)', component: Signup },
-      { title: 'Dieta de la semana', component: Welcome },
-      { title: 'Tu dieta', component: Welcome },
+      { title: 'Inicio (Blog)', component: Welcome, icon: "apps" },
+      { title: 'Admin Empresas', component: AdminEmpresasPage, icon: "ice-cream"  }, 
+      { title: 'Admin Api', component: AdminApiPage, icon: "ice-cream"  }, 
+      { title: 'Admin Usuarios', component: AdminUsuariosPage, icon: "ice-cream"  }, 
+      { title: 'Modulo', component: ModuloPage, icon: "cube"  },
       //{ title: 'List', component: ListPage }
     ];
-    this.invitedPages = [    
-      { title: 'Ingresa', component: Signup }
-     ];
+     
   }
+
+
+
+  openPage(page) {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    this.nav.setRoot(page.component);
+  }
+
 get navCtrl(): NavController {
     return this.app.getRootNav();
   }
