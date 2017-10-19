@@ -12,6 +12,7 @@ export class ModuloPage {
   public userDetails : any;
   public resposeData : any;
   public dataSet : any;
+  public test : any;
   userPostData = {
     "user_id": "",
     "token": "",
@@ -22,12 +23,22 @@ export class ModuloPage {
   json_head = {
     "nombre":""
   };
+
   constructor(public common: Common, private alertCtrl: AlertController,public navCtrl : NavController, public app : App, public authService : AuthService,public toastCtrl: ToastController,public jmyDB: JMYDB) {
     const data = JSON.parse(localStorage.getItem('userData'));
+    console.log(data);
+    
+    
+
     this.userDetails = data.userData;
     this.userPostData.user_id = this.userDetails.user_id;
     this.userPostData.token = this.userDetails.token;
     
+  }
+  usuarioSession(){
+    this.test = JSON.parse(localStorage.getItem('jmyData'));
+     console.log(this.test);
+   
   }
   usuarios(){
     this.jmyDB.jmyUsuarios({"fn":"lista"});

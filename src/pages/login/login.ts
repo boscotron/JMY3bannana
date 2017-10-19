@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, MenuController, ToastController, Platform } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import {AuthService} from "../../providers/auth-service";
+import {jmyapis} from "../../providers/jmyapis";
 import {JMYDB} from "../../providers/jmydb";
 import {Signup} from "../signup/signup";
 import {RepassPage} from "../repass/repass";
@@ -20,9 +21,12 @@ import {RepassPage} from "../repass/repass";
 export class Login {
   
   resposeData : any;
-  userData = {"username":"", "password":""};
+  userData = {"username":"", 
+              "password":"",
+              "apis":{},
+            };
 
-  constructor(public navCtrl: NavController, public authService: AuthService, private toastCtrl:ToastController, public menu: MenuController, private jmyDB: JMYDB, private platform: Platform) {
+  constructor(public navCtrl: NavController, public jmyApis: jmyapis, public authService: AuthService, private toastCtrl:ToastController, public menu: MenuController, private jmyDB: JMYDB, private platform: Platform) {
   }
 
   ionViewDidLoad() {
@@ -31,25 +35,21 @@ export class Login {
 
   login(){
     if(this.userData.username && this.userData.password){
+      this.userData.apis = this.jmyApis.hostApisList;
       this.authService.postData(this.userData, "login").then((result) =>{
       this.resposeData = result;
       console.log(this.resposeData);
+      console.log(this.jmyApis.hostApisList);
       if(this.resposeData.userData){
-        localStorage.setItem('userData', JSON.stringify(this.resposeData) )
+        localStorage.setItem('userData', JSON.stringify(this.resposeData) );
+        localStorage.setItem('jmyData', JSON.stringify(this.resposeData.jmyapi) );
         this.navCtrl.push(TabsPage);
         this.menu.enable(true);
-  this.platform.pause.subscribe(() => {
-        this.jmyDB.jmy({
-                "fn":"ver", // ver, guardar
-                "head":{
-                  "tabla":"DBINDEX", // *obligatorio ver, guardar
-                  "ID_F":"TEST", 
-                  "titulo":"TEST", 
-                }, 
+
+        location.reload();
+        this.platform.pause.subscribe(() => {
+              console.log('paused');
           });
-          console.log(this.jmyDB.resultado);
-        console.log('paused')
-    });
       }else{
         this.presentToast("El usuario o contraseña no es valido");
      }}, (err) => {

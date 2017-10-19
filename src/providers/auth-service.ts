@@ -14,7 +14,7 @@ let apiUrl = 'https://comsis.mx/api/auth/v1/';
 export class AuthService {
 
   constructor(public http: Http) {
-    console.log('Hello AuthService Provider');
+    //console.log('Hello AuthService Provider');
   }
 
   postData(credentials, type){
