@@ -118,7 +118,7 @@ export class jmyapis {
   }
   empresaactual(){
     var d = JSON.parse(localStorage.getItem('jmyData'));
-     if(d)
+     if(d!=undefined)
        return d.primerempresa;
   }
 
