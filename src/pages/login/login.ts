@@ -50,6 +50,7 @@ export class Login {
         this.platform.pause.subscribe(() => {
               console.log('paused');
           });
+          
       }else{
         this.presentToast("El usuario o contraseña no es valido");
      }}, (err) => {

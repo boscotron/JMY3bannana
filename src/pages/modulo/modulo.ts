@@ -1,100 +1,84 @@
 import {Component} from '@angular/core';
-import {NavController, App, AlertController,ToastController } from 'ionic-angular';
-import {AuthService} from "../../providers/auth-service";
+import {Platform , NavController, App, AlertController } from 'ionic-angular';
+
 import {Common} from "../../providers/common";
-import {JMYDB} from "../../providers/jmydb";
+import {jmyapis } from "../../providers/jmyapis";
 
 @Component({
   selector: 'page-modulo',
   templateUrl: 'modulo.html',
 })
 export class ModuloPage {
-  public userDetails : any;
-  public resposeData : any;
-  public dataSet : any;
-  public test : any;
-  userPostData = {
-    "user_id": "",
-    "token": "",
-    "nombre": "",
-    "json_body": {},
-    "fn":""
-  };
-  json_head = {
-    "nombre":""
-  };
+  public resultado : any;
+  resultadoPrint = "";
+  formulario = {"campo1":""
 
-  constructor(public common: Common, private alertCtrl: AlertController,public navCtrl : NavController, public app : App, public authService : AuthService,public toastCtrl: ToastController,public jmyDB: JMYDB) {
-    const data = JSON.parse(localStorage.getItem('userData'));
-    console.log(data);
-    
-    
+    };
+  constructor( private platform: Platform, public common: Common, private alertCtrl: AlertController,public navCtrl : NavController, public app : App,public jmyApis: jmyapis) {
 
-    this.userDetails = data.userData;
-    this.userPostData.user_id = this.userDetails.user_id;
-    this.userPostData.token = this.userDetails.token;
-    
+    this.ver();
+
   }
-  usuarioSession(){
-    this.test = JSON.parse(localStorage.getItem('jmyData'));
-     console.log(this.test);
-   
-  }
-  usuarios(){
-    this.jmyDB.jmyUsuarios({"fn":"lista"});
-  }
-  pruebaVer(){
-    var varextra:{"guardar uno","guardar dos"};
-    
-    this.jmyDB.jmy({
-          "fn":"guardar", // ver, guardar
+
+borrar(){
+  this.jmyApis.borrar({
+      "head":{
+        "API":"938a6b38e5092f1ccaede78f57665fdc", // *obligatorio API-TABLA
+        "TABLA":"Test", // *obligatorio API-TABLA
+        //"DB":"0ee548ef3c64b6564191bb0d15a0cc08", // *obligatorio 
+        "ID_F":"Prueba", // opcional            
+      }, 
+      "body":["campo1"], 
+    }).then((result) => {
+           console.log(result);
+           this.ver();
+        });
+}
+
+guardar(){
+  this.jmyApis.guardar({
+      "head":{
+        "API":"938a6b38e5092f1ccaede78f57665fdc", // *obligatorio API-TABLA
+        "TABLA":"Test", // *obligatorio API-TABLA
+
+        //"DB":"0ee548ef3c64b6564191bb0d15a0cc08", // *obligatorio 
+        "ID_F":"Prueba", // opcional            
+      }, 
+      "body":{
+        "campo1":this.formulario.campo1,
+        "varialbe1":"guardar uno 3 ",
+        "varialbe2":{"guardar uno":"guardar dos  3"},
+      }, 
+    }).then((result) => {
+           console.log(result);
+           this.ver();
+        });
+}
+
+ver(){     
+   this.jmyApis.ver({
           "head":{
-            "tabla":"DBINDEX", 
-            "ID_F":"TEST", 
-          }, 
-           "body":{
-            "varialbe1":"guardar uno",
-            "varialbe2": varextra,
-          },
-    });
-    console.log(this.jmyDB.resultado);
-    
-    this.jmyDB.jmy({
-          "fn":"ver", // ver, guardar
-          "head":{
-            "tabla":"DBINDEX", // *obligatorio ver, guardar
-            "ID_F":"TEST", 
-          }, 
-    });
-    console.log(this.jmyDB.resultado);
-    
+            "API":"938a6b38e5092f1ccaede78f57665fdc", // *obligatorio API-TABLA
+            "TABLA":"Test", // *obligatorio API-TABLA
+            //"DB":"0ee548ef3c64b6564191bb0d15a0cc08", // *obligatorio ver, guardar
+            "ID_F":"Prueba", // opcional ver, guardar
+            //"COL":{"nombre_db","nombre"}, // opcional ver
+            //"SALIDA":{"array*",nombre_db","nombre"}, // opcional ver
+            //"ID_V":{}, // opcional ver
+            //"ID_S":{}, // opcional ver
+            //"LIKE_V":{"angora","luciernaga"}, // opcional ver
+            //"LIKE_V_OPER":"OR", // opcional ver
+          }
+        }).then((result) => {
+           console.log(result);
+           this.resultado = result;
+           if(this.resultado!=undefined){
+             if(this.resultado.error=='ninguno' && this.resultado.ver.otKey!=null){
+                  this.resultadoPrint = this.resultado.ver.ot.Prueba.campo1;
+
+                 }
+            }
+        });
   }
 
-  alerta(men) {
-    const toast = this.toastCtrl.create({
-      message: men,
-      duration: 9000,
-      position: 'top'
-    });
-    toast.present();
-   }
-  converTime(time) {
-    let a = new Date(time * 1000);
-    return a;
-  }
-
-  backToWelcome() {
-    const root = this
-      .app
-      .getRootNav();
-    root.popToRoot();
-  }
-
-  logout() {
-    //Api Token Logout
-
-    localStorage.clear();
-    setTimeout(() => this.backToWelcome(), 1000);
-
-  }
 }

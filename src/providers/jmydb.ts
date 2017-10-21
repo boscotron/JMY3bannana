@@ -50,27 +50,33 @@ export class JMYDB {
   public jmy(datos){
 
       //var 
-      const data = JSON.parse(localStorage.getItem('userData'));
-      this.userDetails = data.userData;
-      this.userPostData.user_id = this.userDetails.user_id;
-      this.userPostData.token = this.userDetails.token;
-      this.userPostData.fn = datos.fn;       
-      this.userPostData.head = datos.head;
-      this.userPostData.body = datos.body;
-      console.log(this.userPostData);
-      //this.common.presentLoading();
-      this
-        .authService
-        .postData(this.userPostData, "jmydb")
-        .then((result) => {
-          this.resultado=result;
-          //if(datos.titulo!=undefined)
-            console.log(datos.titulo);
-            
-          console.log(this.resultado);
-        }, (err) => {
-          //Connection failed message
-        });
+      var data = JSON.parse(localStorage.getItem('userData'));
+      if(data!=undefined){
+
+
+        
+            this.userDetails = data.userData;
+            this.userPostData.user_id = this.userDetails.user_id;
+            this.userPostData.token = this.userDetails.token;
+            this.userPostData.fn = datos.fn;       
+            this.userPostData.head = datos.head;
+            this.userPostData.body = datos.body;
+
+            console.log(this.userPostData);
+            //this.common.presentLoading();
+            this
+              .authService
+              .postData(this.userPostData, "jmydb")
+              .then((result) => {
+                this.resultado=result;
+                //if(datos.titulo!=undefined)
+                  console.log(datos.titulo);
+                  
+                console.log(this.resultado);
+              }, (err) => {
+                //Connection failed message
+              });
+       }
   }
 
   public jmyUsuarios(datos){

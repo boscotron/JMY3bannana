@@ -76,13 +76,23 @@
 					    </ion-col>
 					    <ion-col col-md-12 col-lg-6>
 					    	<button ion-button color="dark" (click)="lista_base_de_datos()">Lista de DB´s</button>
-					    	<ion-card *ngFor="let itemb of listaDB; let msgIndex = index" >
+					    	<ion-card no-padding *ngFor="let itemb of listaDB; let msgIndex = index" >
 							    <ion-item>
 							    
 								    <ion-card-content no-padding>
-								     	<p [innerHTML]="itemb.nombre_db | linky"></p>
-									    <span >
-
+								    	<table>
+								    		<tr><td><b>Nombre:</b></td>
+								    			<td>{{itemb.nombre_db}}</td>
+								    		</tr>
+								    		<tr><td><b>Empresa:</b></td>
+								    			<td>{{nombreEmpresa(itemb.id_empresa)}}</td>
+								    		</tr>
+								    		<tr><td><b>API:</b></td>
+								    			<td>{{nombreApi(itemb.apk_key)}}</td>
+								    		</tr>
+								    	</table>
+								     	
+									    <span>
 										  <ion-item>
 										    <ion-input placeholder="DB KEY" value="{{itemb.db_key}}"></ion-input>
 										  </ion-item>

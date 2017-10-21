@@ -10,9 +10,6 @@ import { AdminEmpresasPage } from '../pages/admin-empresas/admin-empresas';
 import { AdminApiPage } from '../pages/admin-api/admin-api';
 import { AdminUsuariosPage } from '../pages/admin-usuarios/admin-usuarios';
 
-import {Signup} from "../pages/signup/signup";
-
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -63,6 +60,11 @@ export class MyApp {
       },{ 
         title: 'Modulo', 
         component: ModuloPage, 
+        icon: "contact",
+        api: null  
+      },{ 
+        title: 'Modulo', 
+        component: ModuloPage, 
         icon: "cube",
         api: "938a6b38e5092f1ccaede78f57665fdc"  
       },{ 
@@ -77,6 +79,8 @@ export class MyApp {
         api: "8936a70da4c53e42de93a427d7a82fab"  
       },
     ];
+
+    /* NO EDITAR DESDE AQUI */
     this.pagesView=[];
 
      if(data!=null){
@@ -91,43 +95,23 @@ export class MyApp {
       
      }
   }
-nombreUsuario(){
-    const data = JSON.parse(localStorage.getItem('userData'));
-    return data.userData.name;
-}
-cambiarEmpresa(){
-  const idEmpresa = this.formulario.idEmpresa;
-  this.vermenu(idEmpresa);
-}
+nombreUsuario(){const d=JSON.parse(localStorage.getItem('userData'));
+    if(d!=undefined){return d.userData.name;}}
+
+cambiarEmpresa(){const idEmpresa = this.formulario.idEmpresa;
+  this.vermenu(idEmpresa);location.reload();}
 
 vermenu(idEmpresa){
-  var acMenu = this.jmyApis.vermenu(idEmpresa);
-  var host = this.pages;
-  //console.log(acMenu);
-  this.nuevoMenu = [];
-  var historial = []; 
-  var accApi = this.jmyApis.empresaapi(idEmpresa);
-  //console.log(accApi);
-  for(var i = 0; i < host.length; ++i){
-   var mostrar = (host[i].api==null)? true: false;
-   if(accApi!=undefined && host[i].api!=null){
-     let newList = accApi.filter((t) => t == host[i].api);
-     if(newList.length > 0){
-       mostrar = true;
-     }
-     historial.push({host:host[i],accApi:accApi,mostrar:mostrar,newList:newList});
-   }
-    if(mostrar){
-      this.nuevoMenu.push({ 
-              title: host[i].title, 
-               component: host[i].component, 
-               icon: host[i].icon  
-             }); 
-     }
+  var h=this.pages;
+  var aa=this.jmyApis.empresaapi(idEmpresa);
+  this.nuevoMenu=[];
+  for(var i=0;i<h.length;++i){
+    var m=(h[i].api==null)?true:false;
+    if(aa!=undefined&&h[i].api!=null){
+      let newList=aa.filter((t)=>t==h[i].api);
+      if(newList.length>0){m = true;}}
+    if(m){this.nuevoMenu.push({title:h[i].title,component:h[i].component,icon:h[i].icon});}
   }
-  //console.log(historial);
-  //console.log(this.nuevoMenu);
-  this.pagesView=this.pages;
   this.pagesView=this.nuevoMenu;
 }
 

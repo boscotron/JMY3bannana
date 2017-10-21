@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NavController, App, AlertController,ToastController } from 'ionic-angular';
 import {AuthService} from "../../providers/auth-service";
 import {Common} from "../../providers/common";
+import {jmyapis} from "../../providers/jmyapis";
 
 
 @Component({
@@ -15,8 +16,10 @@ export class AdminApiPage {
   public dataSet : any;
   public out : any;
   public empresas : any;
+  public nomEmpresa : any;
   public apis : any;
   public listaDB : any;
+  tb:any;
   userPostData = {
     "user_id": "",
     "token": "",
@@ -35,7 +38,7 @@ export class AdminApiPage {
     "nombre_db":"",
     "fn":""
   };
-  constructor(public common: Common, private alertCtrl: AlertController,public navCtrl : NavController, public app : App, public authService : AuthService,public toastCtrl: ToastController) {
+  constructor(public common: Common, private alertCtrl: AlertController,public navCtrl : NavController, public app : App, public authService : AuthService,public toastCtrl: ToastController, public jmyApis: jmyapis) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
     this.userPostData.user_id = this.userDetails.user_id;
@@ -44,8 +47,25 @@ export class AdminApiPage {
     this.api_lista();
     this.empresas_lista();
     this.lista_base_de_datos();
-    
-    console.log(this.empresas);
+    this.nomEmpresa = this.jmyApis.verempresas();
+  }
+
+  nombreEmpresa(id){
+    var d = this.nomEmpresa;
+    for(var i=0;i<d.length;i++){
+      this.tb = d[i];
+      if(this.tb.id_empresa==id){
+        return this.tb.nombre;
+      }}
+  }
+
+  nombreApi(id){
+    var d = this.dataSet;
+    for(var i=0;i<d.length;i++){
+      this.tb = d[i];
+      if(this.tb.apk_key==id){
+        return this.tb.nombre;
+      }}
   }
 
   generar_base_de_datos(){
@@ -53,7 +73,6 @@ export class AdminApiPage {
     this.userPostData.json_body = this.form_nueva_db;
     if(this.form_nueva_db.nombre_db !="" && this.form_nueva_db.id_empresa !="" && this.form_nueva_db.apk_key !=""  ){
       this.userPostData.fn = 'nuevaDB'; 
-      console.log(this.userPostData);
       //this.common.presentLoading();
       this
         .authService
@@ -76,9 +95,11 @@ export class AdminApiPage {
     
   }
 
+  
   lista_base_de_datos(){
    
    
+    
       this.userPostData.fn = 'listaDB'; 
       console.log(this.userPostData);
       console.log("lista_base_de_datos");
