@@ -133,26 +133,28 @@ export class jmyapis {
    }
   /* funciones para el menu */
   vermenu(idEmpresa){
-     const data = JSON.parse(localStorage.getItem('jmyData'));
-     if(data.menu[idEmpresa]!=undefined) return data.menu[idEmpresa];else return [];} 
+     var data = JSON.parse(localStorage.getItem('jmyData'));
+     return (data.menu[idEmpresa]!=undefined) ? data.menu[idEmpresa]:[];} 
   verempresas(){
      var data = JSON.parse(localStorage.getItem('jmyData'));
-     if(data!=null) return data.empresaDisp;else return [];}
+     return (data!=null) ? data.empresaDisp:[];} 
   verempresasapis(idEmpresa){
      const data = JSON.parse(localStorage.getItem('jmyData'));
-     return data.empresasApis[idEmpresa];}
+     return (data!=undefined)? data.empresasApis[idEmpresa]:0;}
   empresaapi(idEmpresa){
-    const data = JSON.parse(localStorage.getItem('jmyData'));
+    var data = JSON.parse(localStorage.getItem('jmyData'));
+    if(data!=undefined){
     this.cambiarempresa(idEmpresa);  
     if(data.empresaApi[idEmpresa]!=undefined){
       return data.empresaApi[idEmpresa].api;
-    }else{return null;}}
+    }else{return null;}}}
    cambiarempresa(idEmpresa){
     var data = JSON.parse(localStorage.getItem('jmyData'));
-    data.primerempresa=idEmpresa;
-    localStorage.removeItem("jmyData");
-    localStorage.setItem('jmyData',JSON.stringify(data));}
+    if(data!=undefined){
+        data.primerempresa=idEmpresa;
+        localStorage.removeItem("jmyData");
+        localStorage.setItem('jmyData',JSON.stringify(data));}}
   empresadefault(){
-     const data = JSON.parse(localStorage.getItem('jmyData'));
-     return data.primerempresa;}
+     var data = JSON.parse(localStorage.getItem('jmyData'));
+     return (data!=undefined)? data.primerempresa:0;}
 }
